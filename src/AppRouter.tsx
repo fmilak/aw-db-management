@@ -16,7 +16,7 @@ const AppRouter = () => {
     return (
         <Router history={customHistory}>
             <div>
-                <Layout className="layout" style={{position: 'fixed', zIndex: 1, width: '100%'}}>
+                <Layout className="layout" style={{position: 'fixed', zIndex: 1, width: '100%', height: '100%'}}>
                     <Header>
                         <div className="logo" />
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{lineHeight: '64px'}}>
