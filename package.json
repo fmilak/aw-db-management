@@ -8,7 +8,14 @@
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.3",
     "@types/react-router-dom": "^5.1.2",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
     "antd": "^3.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
     "qs": "^6.9.1",
@@ -23,9 +30,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
