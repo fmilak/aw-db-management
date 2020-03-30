@@ -1,15 +1,15 @@
 class Customer {
-    Id: number;
+    Id = 0;
 
-    Name: string;
+    Name = '';
 
-    Surname: string;
+    Surname = '';
 
-    Email: string;
+    Email = '';
 
-    Telephone: string;
+    Telephone = '';
 
-    CityId: string;
+    CityId = '';
 }
 
 export default Customer;
