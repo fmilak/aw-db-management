@@ -1,14 +1,15 @@
-import React, { useContext } from "react";
-import "./App.css";
-import RootStore from "./RootStore";
-import AppRouter from "./AppRouter";
+import React, {useContext, useEffect} from 'react';
+import './App.css';
+import RootStore from './RootStore';
+import AppRouter from './AppRouter';
+import {configure} from 'mobx';
 
-const RootStoreContext = React.createContext(new RootStore());
+configure({enforceActions: 'always'});
 
-export const rootContext = (): RootStore => useContext(RootStoreContext);
+export const RootStoreContext = React.createContext(new RootStore());
 
 const App: React.FC = () => {
-  return <AppRouter />;
+    return <AppRouter />;
 };
 
 export default App;

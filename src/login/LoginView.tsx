@@ -1,11 +1,11 @@
 import {Button, Form, Icon, Input} from 'antd';
 import {observer} from 'mobx-react';
-import React from 'react';
-import {rootContext} from '../App';
+import React, {useContext} from 'react';
+import {RootStoreContext} from '../App';
 import '../App.css';
 
 const LoginView: React.FC<any> = observer(() => {
-    const {loginStore} = rootContext();
+    const {loginStore} = useContext(RootStoreContext);
 
     return (
         <Form>
