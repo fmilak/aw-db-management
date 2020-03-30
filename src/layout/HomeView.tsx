@@ -4,6 +4,8 @@ import {RootStoreContext} from '../App';
 import Customer from '../model/Customer';
 import HomeStore from './HomeStore';
 import {Dropdown, Button, Menu, Icon} from 'antd';
+import {observable, runInAction} from 'mobx';
+import './HomeStyle.css';
 
 const TablePaging = observer(({store}: {store: HomeStore}): any => {
     return store.pagingNumber.map((pageNumber: number): any => {
@@ -71,7 +73,12 @@ const CustomerList = observer(({store}: {store: HomeStore}): any => {
         .map((customer: Customer, index: any) => {
             if (index >= store.sortBeginning && index < store.sortEnd)
                 return (
-                    <tr key={customer.Id}>
+                    <tr
+                        className="row"
+                        key={customer.Id}
+                        onClick={() => {
+                            store.openSelectedCustomer(customer);
+                        }}>
                         <td>{customer.Id}</td>
                         <td>{customer.Name}</td>
                         <td>{customer.Surname}</td>

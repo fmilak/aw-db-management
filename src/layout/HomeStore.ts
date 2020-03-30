@@ -2,6 +2,7 @@ import RestService from '../service/RestService';
 import {observable, action, computed} from 'mobx';
 import RestInit from '../model/api/RestInit';
 import Customer from '../model/Customer';
+import {Alert} from 'antd';
 
 class HomeStore {
     @observable customers: Array<Customer> = [];
@@ -60,6 +61,13 @@ class HomeStore {
         this.sortBeginning = (value - 1) * this.sortNumber;
         this.selectedPage = value;
     };
+
+    openSelectedCustomer = (customer: Customer): void => {
+        // todo
+        alert(customer.Name);
+    };
+
+    changeSelectedRowBackground = (el: any): void => {};
 }
 
 export default HomeStore;
