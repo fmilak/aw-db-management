@@ -6,11 +6,22 @@ import HomeStore from './HomeStore';
 import {Dropdown, Button, Menu, Icon} from 'antd';
 import {observable, runInAction} from 'mobx';
 import './HomeStyle.css';
+import Search from 'antd/lib/input/Search';
+import CustomerSortField from '../model/CustomerSortField';
+
+const TableSearch = observer(({store}: {store: HomeStore}) => {
+    return (
+        <div>
+            <Search placeholder="Search text" onKeyUp={event => store.filterTable(event.currentTarget.value)} style={{width: 200}} />
+        </div>
+    );
+});
 
 const TablePaging = observer(({store}: {store: HomeStore}): any => {
     return store.pagingNumber.map((pageNumber: number): any => {
         return (
             <Button
+                key={pageNumber}
                 style={store.selectedPage === pageNumber ? {backgroundColor: 'blue'} : {}}
                 onClick={() => store.changeTablePaging(pageNumber)}>
                 {pageNumber}
@@ -61,10 +72,16 @@ const TableDropdownMenu = observer(({store}: {store: HomeStore}) => {
     );
 });
 
-const ListHeader = observer(({customers}: {customers: Array<Customer>}): any => {
-    const keys = Object.keys(customers[0]);
+const ListHeader = observer(({store}: {store: HomeStore}): any => {
+    const keys = Object.values(CustomerSortField);
     return keys.map((key, index) => {
-        return <th key={index}>{key}</th>;
+        return (
+            <th key={index} onClick={() => store.changeSortTable(key)}>
+                {key}
+                <span> </span>
+                {store.sort.field === key && <Icon type={store.sort.isAsc ? 'down' : 'up'} />}
+            </th>
+        );
     });
 });
 
@@ -92,25 +109,23 @@ const CustomerList = observer(({store}: {store: HomeStore}): any => {
 });
 
 const CustomerTable = observer(({store}: {store: HomeStore}) => {
-    if (!store.customers || store.customers.length === 0) {
+    if (!store.customers) {
         return null;
     }
     return (
         <div>
             <div>
                 <TableDropdownMenu store={store} />
-            </div>
-            <div>
-                <text>
-                    {store.sortBeginning} / {store.sortEnd}
-                </text>
+                <TableSearch store={store} />
             </div>
             <div>
                 <TablePaging store={store} />
             </div>
             <table>
+                <thead>
+                    <ListHeader store={store} />
+                </thead>
                 <tbody>
-                    <ListHeader customers={store.customers.slice()} />
                     <CustomerList store={store} />
                 </tbody>
             </table>
