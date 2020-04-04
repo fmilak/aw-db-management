@@ -43,19 +43,19 @@ class HomeStore {
     };
 
     addCustomer = (): void => {
-        // todo
+        alert('add');
     };
 
     editCustomer = (): void => {
-        // todo
+        alert('edit');
     };
 
     deleteCustomer = (): void => {
-        // todo
+        alert('delete');
     };
 
     manageCustomerBills = (): void => {
-        // todo
+        alert('manage');
     };
 }
 

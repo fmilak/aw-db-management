@@ -38,12 +38,7 @@ const HomeView: React.FC = observer(
                             </Button>
                         </div>
                     )}
-                    <CustomTable
-                        data={homeStore.customers}
-                        selected={homeStore.selectedCustomer}
-                        onRowClick={homeStore.selectCustomer}
-                        type="customer"
-                    />
+                    <CustomTable data={homeStore.customers} onRowClick={homeStore.selectCustomer} type="customer" />
                 </div>
             </div>
         );

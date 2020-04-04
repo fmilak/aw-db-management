@@ -20,16 +20,15 @@ class CustomTableStore {
 
     @observable headerKeys: Array<any> = [];
 
-    @observable selected: any;
+    @observable selected: any = {};
 
     onRowClick!: Function;
 
-    constructor(data: Array<any>, type: string, selected: any, onRowClick: Function) {
+    constructor(data: Array<any>, type: string, onRowClick: Function) {
         runInAction(() => {
             this.data = data;
             this.originalData = [...data];
             this.type = type;
-            this.selected = selected;
             this.onRowClick = onRowClick;
         });
 
@@ -148,6 +147,25 @@ class CustomTableStore {
                 }
             }
         });
+    };
+
+    @action
+    rowClick = (value: any): void => {
+        if (this.selected === value) {
+            this.selected = this.getNewSelected();
+        } else {
+            this.selected = value;
+        }
+        this.onRowClick(this.selected);
+    };
+
+    getNewSelected = (): any => {
+        switch (this.type) {
+            case 'customer':
+                return new Customer();
+            default:
+                return {};
+        }
     };
 }
 

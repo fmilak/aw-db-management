@@ -78,7 +78,7 @@ const CustomerList = observer(({store}) => {
                     <tr
                         className="row"
                         key={customer.Id}
-                        onClick={() => store.onRowClick(customer)}
+                        onClick={() => store.rowClick(customer)}
                         style={store.selected === customer ? {backgroundColor: 'blue'} : {}}>
                         <td>{customer.Id}</td>
                         <td>{customer.Name}</td>
@@ -115,13 +115,12 @@ const TableHeader = observer(({store}: {store: CustomTableStore}): any => {
 
 interface CustomTableProps {
     data: Array<any>;
-    selected: any;
     onRowClick: Function;
     type: string;
 }
 
-const CustomTable: React.FC<CustomTableProps> = observer(({data, selected, onRowClick, type}) => {
-    const store: CustomTableStore = new CustomTableStore(data, type, selected, onRowClick);
+const CustomTable: React.FC<CustomTableProps> = observer(({data, onRowClick, type}) => {
+    const store: CustomTableStore = new CustomTableStore(data, type, onRowClick);
 
     return (
         <div>
