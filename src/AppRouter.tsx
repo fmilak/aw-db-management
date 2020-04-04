@@ -4,7 +4,7 @@ import React, {useContext} from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
 import {RootStoreContext} from './App';
 import HomeView from './layout/HomeView';
-import ProfileView from './layout/profile/ProfileView';
+import LoginView from './login/LoginView';
 
 const {Header, Content} = Layout;
 
@@ -19,21 +19,30 @@ const AppRouter = () => {
                 <Layout className="layout" style={{position: 'fixed', zIndex: 1, width: '100%', height: '100%'}}>
                     <Header>
                         <div className="logo" />
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{lineHeight: '64px'}}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            defaultSelectedKeys={[customHistory.location.key ? customHistory.location.key : '1']}
+                            style={{lineHeight: '64px'}}>
                             <Menu.Item key="1" onClick={() => customHistory.push('/')}>
                                 <Icon type="home" />
                                 Home
                             </Menu.Item>
-                            <Menu.Item key="3" onClick={() => customHistory.push(`/test`)}>
+                            <Menu.Item key="2" onClick={() => customHistory.push(`/login`)}>
                                 <Icon type="user" />
-                                Profile
+                                Login
                             </Menu.Item>
                         </Menu>
                     </Header>
                     <Content style={{padding: '0 50px'}}>
                         <div style={{background: '#fff', padding: 24, minHeight: 280}}>
                             <Switch>
-                                <Route path="/:profileName" children={<ProfileView />} />
+                                <Route path="/login">
+                                    <LoginView />
+                                </Route>
+                                <Route path="/login">
+                                    <LoginView />
+                                </Route>
                                 <Route path="/">
                                     <HomeView />
                                 </Route>

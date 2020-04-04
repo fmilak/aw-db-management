@@ -5,12 +5,11 @@ class RestService {
         const url = `http://www.fulek.com/nks/api/aw${restInit.url}`;
         const response: any = await fetch(url, {
             headers: restInit.header,
-            body: restInit.body !== '' ? restInit.body : null,
+            body: restInit.body,
             method: restInit.method,
         });
         console.log(response);
         const responseJson: string = await response.json();
-        console.log(responseJson);
         callback(responseJson);
     }
 }
