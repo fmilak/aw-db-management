@@ -9,6 +9,10 @@ class RestService {
             method: restInit.method,
         });
         console.log(response);
+        if (response.status !== 200) {
+            alert('Pogreška prilikom REST poziva');
+            return;
+        }
         const responseJson: string = await response.json();
         callback(responseJson);
     }

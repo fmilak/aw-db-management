@@ -1,19 +1,17 @@
+import {Button} from 'antd';
 import {observer} from 'mobx-react';
 import React, {ReactElement, useContext, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import {RootStoreContext} from '../App';
-import Customer from '../model/Customer';
-import HomeStore from './HomeStore';
-import {Dropdown, Button, Menu, Icon} from 'antd';
-import './HomeStyle.css';
-import Search from 'antd/lib/input/Search';
-import CustomerSortField from '../model/CustomerSortField';
-import LoginStore from '../login/LoginStore';
 import CustomTable from '../components/CustomTable';
+import './HomeStyle.css';
 
 const HomeView: React.FC = observer(
     (): ReactElement => {
         const {homeStore, loginStore} = useContext(RootStoreContext);
+        const history = useHistory();
         homeStore.loginStore = loginStore;
+        homeStore.history = history;
 
         useEffect(() => {
             homeStore.init();
@@ -26,7 +24,7 @@ const HomeView: React.FC = observer(
                 <div>
                     {loginStore.isAuthenticated && (
                         <div>
-                            <Button>Add</Button>
+                            <Button onClick={homeStore.addCustomer}>Add</Button>
                             <Button disabled={!homeStore.isCustomerSelected} onClick={homeStore.editCustomer}>
                                 Edit
                             </Button>

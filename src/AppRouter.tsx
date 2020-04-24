@@ -3,6 +3,7 @@ import {createBrowserHistory} from 'history';
 import React, {useContext} from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
 import {RootStoreContext} from './App';
+import CustomerFormView from './layout/customer-form/CustomerFormView';
 import HomeView from './layout/HomeView';
 import LoginView from './login/LoginView';
 
@@ -11,8 +12,6 @@ const {Header, Content} = Layout;
 const customHistory = createBrowserHistory();
 
 const AppRouter = () => {
-    const {homeStore} = useContext(RootStoreContext);
-
     return (
         <Router history={customHistory}>
             <div>
@@ -40,8 +39,8 @@ const AppRouter = () => {
                                 <Route path="/login">
                                     <LoginView />
                                 </Route>
-                                <Route path="/login">
-                                    <LoginView />
+                                <Route path="/:form">
+                                    <CustomerFormView />
                                 </Route>
                                 <Route path="/">
                                     <HomeView />

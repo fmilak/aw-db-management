@@ -1,13 +1,13 @@
-import RestService from '../service/RestService';
-import {observable, action, computed} from 'mobx';
+import {action, computed, observable} from 'mobx';
+import LoginStore from '../login/LoginStore';
 import RestInit from '../model/api/RestInit';
 import Customer from '../model/Customer';
-import CustomerSortField from '../model/CustomerSortField';
-import {toNumber} from 'lodash';
-import LoginStore from '../login/LoginStore';
+import RestService from '../service/RestService';
 
 class HomeStore {
     loginStore!: LoginStore;
+
+    history!: any;
 
     @observable customers: Array<Customer> = [];
 
@@ -18,8 +18,10 @@ class HomeStore {
         return this.selectedCustomer.Id !== 0;
     }
 
+    @action
     init = (): void => {
         this.initCustomers();
+        this.selectedCustomer = new Customer();
     };
 
     initCustomers = (): void => {
@@ -43,19 +45,35 @@ class HomeStore {
     };
 
     addCustomer = (): void => {
-        alert('add');
+        this.history.push('/add');
     };
 
     editCustomer = (): void => {
-        alert('edit');
+        this.history.push('/edit');
     };
 
     deleteCustomer = (): void => {
-        alert('delete');
+        const restInit: RestInit = new RestInit();
+        restInit.url = `/deletecustomer`;
+        restInit.method = 'POST';
+        restInit.header = {
+            'Content-Type': 'application/json',
+        };
+        restInit.body = JSON.stringify({
+            id: this.selectedCustomer.Id,
+        });
+        RestService.fetch(restInit, this.handleCustomerDelete).catch((err) => console.log(err));
+    };
+
+    @action
+    handleCustomerDelete = (responseJson: any): void => {
+        alert(`Customer ${this.selectedCustomer.Id} successfully deleted!`);
+        this.selectedCustomer = new Customer();
+        this.initCustomers();
     };
 
     manageCustomerBills = (): void => {
-        alert('manage');
+        this.history.push('/manage');
     };
 }
 
