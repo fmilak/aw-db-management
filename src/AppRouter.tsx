@@ -3,7 +3,7 @@ import {createBrowserHistory} from 'history';
 import React, {useContext} from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
 import {RootStoreContext} from './App';
-import CustomerFormView from './layout/customer-form/CustomerFormView';
+import CustomerBillsView from './layout/customer-form/CustomerBillsView';
 import HomeView from './layout/HomeView';
 import LoginView from './login/LoginView';
 
@@ -39,8 +39,8 @@ const AppRouter = () => {
                                 <Route path="/login">
                                     <LoginView />
                                 </Route>
-                                <Route path="/:form">
-                                    <CustomerFormView />
+                                <Route path="/:customerId">
+                                    <CustomerBillsView />
                                 </Route>
                                 <Route path="/">
                                     <HomeView />

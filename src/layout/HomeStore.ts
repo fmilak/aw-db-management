@@ -73,7 +73,7 @@ class HomeStore {
     };
 
     manageCustomerBills = (): void => {
-        this.history.push('/manage');
+        this.history.push(`/${this.selectedCustomer.Id}`);
     };
 }
 

@@ -1,7 +1,8 @@
-import {observable, computed, action, runInAction} from 'mobx';
-import Customer from '../model/Customer';
-import CustomerSortField from '../model/CustomerSortField';
 import {toNumber} from 'lodash';
+import {action, computed, observable, runInAction} from 'mobx';
+import Customer from '../model/Customer';
+import {CustomerSortField, BillSortField} from '../model/SortEnums';
+import Bill from '../model/Bill';
 
 class CustomTableStore {
     @observable sortNumber = 10;
@@ -57,6 +58,9 @@ class CustomTableStore {
             case 'customer':
                 this.headerKeys = Object.values(CustomerSortField);
                 break;
+            case 'bill':
+                this.headerKeys = Object.values(BillSortField);
+                break;
             default:
                 break;
         }
@@ -79,6 +83,9 @@ class CustomTableStore {
         switch (this.type) {
             case 'customer':
                 this.filterCustomerTable(value);
+                break;
+            case 'bill':
+                this.filterBillTable(value);
                 break;
             default:
                 break;
@@ -103,6 +110,21 @@ class CustomTableStore {
     };
 
     @action
+    filterBillTable = (value: string): void => {
+        this.data = this.originalData.filter((bill: Bill) => {
+            if (
+                bill.BillNumber.includes(value) ||
+                bill.Comment.includes(value) ||
+                bill.Id.toString() === value ||
+                bill.CustomerId.toString() === value ||
+                bill.SellerId.toString() === value
+            ) {
+                return bill;
+            }
+        });
+    };
+
+    @action
     changeSortTable = (field: string): void => {
         if (this.sort.field === field) {
             this.sort.isAsc = !this.sort.isAsc;
@@ -119,6 +141,9 @@ class CustomTableStore {
         switch (this.type) {
             case 'customer':
                 this.sortCustomerTable();
+                break;
+            case 'bill':
+                this.sortBillTable();
                 break;
             default:
                 break;
@@ -150,6 +175,31 @@ class CustomTableStore {
     };
 
     @action
+    private sortBillTable = (): void => {
+        this.data = this.data.slice().sort((a: Bill, b: Bill): any => {
+            if (
+                this.sort.field === BillSortField.ID ||
+                this.sort.field === BillSortField.CUSTOMER_ID ||
+                this.sort.field === BillSortField.SELLER_ID ||
+                this.sort.field === BillSortField.CREDIT_CARD_ID ||
+                this.sort.field === BillSortField.DATE
+            ) {
+                if (this.sort.isAsc) {
+                    return toNumber(a[this.sort.field]) - toNumber(b[this.sort.field]);
+                } else {
+                    return toNumber(b[this.sort.field]) - toNumber(a[this.sort.field]);
+                }
+            } else if (this.sort.field === BillSortField.BILL_NUMBER || this.sort.field === BillSortField.COMMENT) {
+                if (this.sort.isAsc) {
+                    return a[this.sort.field].localeCompare(b[this.sort.field]);
+                } else {
+                    return b[this.sort.field].localeCompare(a[this.sort.field]);
+                }
+            }
+        });
+    };
+
+    @action
     rowClick = (value: any): void => {
         if (this.selected === value) {
             this.selected = this.getNewSelected();
@@ -163,6 +213,8 @@ class CustomTableStore {
         switch (this.type) {
             case 'customer':
                 return new Customer();
+            case 'bill':
+                return new Bill();
             default:
                 return {};
         }
