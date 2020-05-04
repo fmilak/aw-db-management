@@ -41,11 +41,15 @@ class CustomerBillsStore {
     };
 
     addBill = () => {
-        this.history.push(`${this.selectedCustomerId}/bills/add`);
+        this.history.push(`/${this.selectedCustomerId}/bills/add`);
     };
 
     editBill = () => {
-        this.history.push(`${this.selectedCustomerId}/bills/edit`);
+        this.history.push(`/${this.selectedCustomerId}/bills/edit`);
+    };
+
+    manageItems = () => {
+        this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBill.Id}/items`);
     };
 }
 

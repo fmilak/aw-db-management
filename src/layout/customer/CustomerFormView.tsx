@@ -2,6 +2,7 @@ import {observer} from 'mobx-react';
 import {useContext} from 'react';
 import {RootStoreContext} from '../../App';
 import {useParams} from 'react-router-dom';
+import React from 'react';
 
 const CustomerFormView: React.FC = observer(() => {
     const {customerFormStore} = useContext(RootStoreContext);

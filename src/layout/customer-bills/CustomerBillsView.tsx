@@ -24,6 +24,9 @@ const CustomerBillsView: React.FC = observer(() => {
                     <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.editBill}>
                         Edit
                     </Button>
+                    <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.manageItems}>
+                        Manage Items
+                    </Button>
                 </div>
             )}
             <CustomTable

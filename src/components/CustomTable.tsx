@@ -7,6 +7,7 @@ import HomeStore from '../layout/HomeStore';
 import Search from 'antd/lib/input/Search';
 import React from 'react';
 import Bill from '../model/Bill';
+import BillItem from '../model/BilItem';
 
 const TableSearch = observer(({store}: {store: CustomTableStore}) => {
     return (
@@ -114,12 +115,31 @@ const BillList = observer(({store}) => {
     });
 });
 
+const BillItemsList = observer(({store}) => {
+    return store.data.map((item: BillItem, index: any) => {
+        if (index >= store.sortBeginning && index < store.sortEnd)
+            return (
+                <tr
+                    className="row"
+                    key={item.ProductId}
+                    onClick={() => store.rowClick(item)}
+                    style={store.selected === item ? {backgroundColor: 'blue'} : {}}>
+                    <td>{item.BillId}</td>
+                    <td>{item.ProductId}</td>
+                    <td>{item.Quantity}</td>
+                </tr>
+            );
+    });
+});
+
 const TableType = observer(({store}) => {
     switch (store.type) {
         case 'customer':
             return <CustomerList store={store} />;
         case 'bill':
             return <BillList store={store} />;
+        case 'items':
+            return <BillItemsList store={store} />;
         default:
             return null;
     }

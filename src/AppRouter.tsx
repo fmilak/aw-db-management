@@ -1,13 +1,13 @@
 import {Icon, Layout, Menu} from 'antd';
 import {createBrowserHistory} from 'history';
-import React, {useContext} from 'react';
+import React from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
-import {RootStoreContext} from './App';
 import CustomerBillsView from './layout/customer-bills/CustomerBillsView';
+import CustomerBillsFormView from './layout/customer-bills/form/CustomerBillsFormView';
+import BillItemsView from './layout/customer-bills/items/BillItemsView';
+import CustomerFormView from './layout/customer/CustomerFormView';
 import HomeView from './layout/HomeView';
 import LoginView from './login/LoginView';
-import CustomerBillsFormView from './layout/customer-bills/form/CustomerBillsFormView';
-import CustomerFormView from './layout/customer/CustomerFormView';
 
 const {Header, Content} = Layout;
 
@@ -41,17 +41,17 @@ const AppRouter = () => {
                                 <Route path="/login">
                                     <LoginView />
                                 </Route>
-                                <Route path="/:customerId/:formType">
-                                    <CustomerFormView />
+                                <Route path="/:customerId/bills/:billId/items">
+                                    <BillItemsView />
                                 </Route>
                                 <Route path="/:customerId/bills/:formType">
                                     <CustomerBillsFormView />
                                 </Route>
                                 <Route path="/:customerId/bills">
-                                    <CustomerBillsFormView />
-                                </Route>
-                                <Route path="/:customerId">
                                     <CustomerBillsView />
+                                </Route>
+                                <Route path="/:formType">
+                                    <CustomerFormView />
                                 </Route>
                                 <Route path="/">
                                     <HomeView />

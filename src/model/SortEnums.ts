@@ -16,3 +16,9 @@ export enum BillSortField {
     CREDIT_CARD_ID = 'CreditCardId',
     COMMENT = 'Comment',
 }
+
+export enum BillItemsSortField {
+    BILL_ID = 'BillId',
+    PRODUCT_ID = 'ProductId',
+    QUANTITY = 'Quantity',
+}
