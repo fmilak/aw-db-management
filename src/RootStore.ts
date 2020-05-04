@@ -1,12 +1,16 @@
 import HomeStore from './layout/HomeStore';
 import RestService from './service/RestService';
 import LoginStore from './login/LoginStore';
-import CustomerBillsStore from './layout/customer-form/CustomerBillsStore';
+import CustomerBillsStore from './layout/customer-bills/CustomerBillsStore';
+import CustomerBillsFormStore from './layout/customer-bills/form/CustomerBillsFormStore';
+import CustomerFormStore from './layout/customer/CustomerFormStore';
 
 class RootStore {
     homeStore: HomeStore = new HomeStore();
     loginStore: LoginStore = new LoginStore();
-    customerFormStore: CustomerBillsStore = new CustomerBillsStore();
+    customerFormStore: CustomerFormStore = new CustomerFormStore();
+    customerBillsStore: CustomerBillsStore = new CustomerBillsStore();
+    customerBillsFormStore: CustomerBillsFormStore = new CustomerBillsFormStore();
 }
 
 export default RootStore;

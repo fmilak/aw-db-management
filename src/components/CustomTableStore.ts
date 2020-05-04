@@ -1,4 +1,4 @@
-import {toNumber} from 'lodash';
+import {toNumber, isNil} from 'lodash';
 import {action, computed, observable, runInAction} from 'mobx';
 import Customer from '../model/Customer';
 import {CustomerSortField, BillSortField} from '../model/SortEnums';
@@ -98,11 +98,11 @@ class CustomTableStore {
     filterCustomerTable = (value: string): void => {
         this.data = this.originalData.filter((customer: Customer) => {
             if (
-                customer.Name.includes(value) ||
-                customer.Surname.includes(value) ||
-                customer.Email.includes(value) ||
-                customer.Telephone.includes(value) ||
-                customer.CityId.toString().includes(value)
+                (!isNil(customer.Name) && customer.Name.includes(value)) ||
+                (!isNil(customer.Surname) && customer.Surname.includes(value)) ||
+                (!isNil(customer.Email) && customer.Email.includes(value)) ||
+                (!isNil(customer.Telephone) && customer.Telephone.includes(value)) ||
+                (!isNil(customer.CityId) && customer.CityId.toString().includes(value))
             ) {
                 return customer;
             }
@@ -113,11 +113,13 @@ class CustomTableStore {
     filterBillTable = (value: string): void => {
         this.data = this.originalData.filter((bill: Bill) => {
             if (
-                bill.BillNumber.includes(value) ||
-                bill.Comment.includes(value) ||
-                bill.Id.toString() === value ||
-                bill.CustomerId.toString() === value ||
-                bill.SellerId.toString() === value
+                (!isNil(bill.BillNumber) && bill.BillNumber.includes(value)) ||
+                (!isNil(bill.Comment) && bill.Comment.includes(value)) ||
+                (!isNil(bill.Date) && bill.Date.toString().includes(value)) ||
+                (!isNil(bill.Id) && bill.Id.toString().includes(value)) ||
+                (!isNil(bill.CustomerId) && bill.CustomerId.toString().includes(value)) ||
+                (!isNil(bill.CreditCardId) && bill.CreditCardId.toString().includes(value)) ||
+                (!isNil(bill.SellerId) && bill.SellerId.toString().includes(value))
             ) {
                 return bill;
             }
