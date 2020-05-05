@@ -44,7 +44,7 @@ class LoginStore {
         if (!isNil(responseJson.token)) {
             this.isAuthenticated = true;
             this.user.username = responseJson.username;
-            localStorage.setItem('token', responseJson.access_token);
+            localStorage.setItem('token', responseJson.token);
             alert('Login successful');
         } else {
             alert('Login error');

@@ -1,5 +1,6 @@
 import {observable, action} from 'mobx';
 import RestInit from '../../../../model/api/RestInit';
+import {Base64} from 'js-base64';
 import RestService from '../../../../service/RestService';
 import BillItem from '../../../../model/BilItem';
 import Bill from '../../../../model/Bill';
@@ -35,7 +36,7 @@ class BillItemsFormStore {
 
     saveForm = () => {
         let newBill: BillItem = new BillItem();
-        newBill.BillId = this.currentBillItem.BillId;
+        newBill.BillId = this.billId;
         newBill.ProductId = this.productId;
         newBill.Quantity = this.quantity;
 

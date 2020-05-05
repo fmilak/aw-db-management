@@ -137,9 +137,9 @@ class CustomTableStore {
     filterBillItemsTable = (value: string): void => {
         this.data = this.originalData.filter((item: BillItem) => {
             if (
-                (!isNil(item.BillId) && item.BillId.includes(value)) ||
-                (!isNil(item.ProductId) && item.ProductId.includes(value)) ||
-                (!isNil(item.Quantity) && item.Quantity.includes(value))
+                (!isNil(item.BillId) && item.BillId.toString().includes(value)) ||
+                (!isNil(item.ProductId) && item.ProductId.toString().includes(value)) ||
+                (!isNil(item.Quantity) && item.Quantity.toString().includes(value))
             ) {
                 return item;
             }
