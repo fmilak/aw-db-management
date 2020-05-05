@@ -49,7 +49,19 @@ class CustomerBillsStore {
     };
 
     manageItems = () => {
-        this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBill.Id}/items`);
+        this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBill.Id}/items`, {bill: this.mapSelectedBill()});
+    };
+
+    mapSelectedBill = () => {
+        return {
+            Id: this.selectedBill.Id,
+            Date: this.selectedBill.Date,
+            BillNumber: this.selectedBill.BillNumber,
+            CustomerId: this.selectedBill.CustomerId,
+            SellerId: this.selectedBill.SellerId,
+            CreditCardId: this.selectedBill.CreditCardId,
+            Comment: this.selectedBill.Comment,
+        };
     };
 }
 

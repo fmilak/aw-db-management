@@ -177,7 +177,9 @@ const CustomTable: React.FC<CustomTableProps> = observer(({data, onRowClick, typ
             </div>
             <table>
                 <thead>
-                    <TableHeader store={store} />
+                    <tr>
+                        <TableHeader store={store} />
+                    </tr>
                 </thead>
                 <tbody>
                     <TableType store={store} />

@@ -2,11 +2,14 @@ import {action, observable, computed} from 'mobx';
 import BillItem from '../../../model/BilItem';
 import RestInit from '../../../model/api/RestInit';
 import RestService from '../../../service/RestService';
+import Bill from '../../../model/Bill';
 
 class BillItemsStore {
     selectedCustomerId!: number;
 
-    selectedBillId!: string | undefined;
+    selectedBillId!: string;
+
+    @observable currentBill: Bill = new Bill();
 
     history: any;
 
@@ -42,15 +45,27 @@ class BillItemsStore {
     };
 
     addItem = () => {
-        // todo
+        this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBillId}/items/add`, {
+            billItem: this.mapSelectedBillItem(),
+        });
     };
 
     editItem = () => {
-        // todo
+        this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBillId}/items/edit`, {
+            billItem: this.mapSelectedBillItem(),
+        });
     };
 
     deleteItem = () => {
         // todo
+    };
+
+    mapSelectedBillItem = () => {
+        return {
+            BillId: this.selectedItem.BillId,
+            ProductId: this.selectedItem.ProductId,
+            Quantity: this.selectedItem.Quantity,
+        };
     };
 }
 

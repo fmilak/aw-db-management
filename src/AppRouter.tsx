@@ -8,6 +8,7 @@ import BillItemsView from './layout/customer-bills/items/BillItemsView';
 import CustomerFormView from './layout/customer/CustomerFormView';
 import HomeView from './layout/HomeView';
 import LoginView from './login/LoginView';
+import BillItemsFormView from './layout/customer-bills/items/form/BillItemsFormView';
 
 const {Header, Content} = Layout;
 
@@ -40,6 +41,9 @@ const AppRouter = () => {
                             <Switch>
                                 <Route path="/login">
                                     <LoginView />
+                                </Route>
+                                <Route path="/:customerId/bills/:billId/items/:formType">
+                                    <BillItemsFormView />
                                 </Route>
                                 <Route path="/:customerId/bills/:billId/items">
                                     <BillItemsView />

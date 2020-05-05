@@ -2,18 +2,23 @@ import {Button} from 'antd';
 import {toNumber} from 'lodash';
 import {observer} from 'mobx-react';
 import React, {useContext, useEffect} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory, useParams, useLocation} from 'react-router-dom';
 import {RootStoreContext} from '../../../App';
 import CustomTable from '../../../components/CustomTable';
+import {runInAction} from 'mobx';
 
 const BillItemsView: React.FC = observer(() => {
     const {billItemsStore, loginStore} = useContext(RootStoreContext);
     let {customerId, billId} = useParams();
+    let {state} = useLocation();
     billItemsStore.selectedCustomerId = toNumber(customerId);
-    billItemsStore.selectedBillId = billId;
+    billItemsStore.selectedBillId = billId ? billId : '';
     billItemsStore.history = useHistory();
 
     useEffect(() => {
+        runInAction(() => {
+            billItemsStore.currentBill = {...state.bill};
+        });
         billItemsStore.init();
     }, []);
 
