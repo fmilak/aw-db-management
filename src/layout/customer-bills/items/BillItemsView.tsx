@@ -27,9 +27,9 @@ const BillItemsView: React.FC = observer(() => {
             {loginStore.isAuthenticated && (
                 <div>
                     <Button onClick={billItemsStore.addItem}>Add</Button>
-                    <Button disabled={!billItemsStore.isItemSelected} onClick={billItemsStore.editItem}>
+                    {/* <Button disabled={!billItemsStore.isItemSelected} onClick={billItemsStore.editItem}>
                         Edit
-                    </Button>
+                    </Button> */}
                     <Button disabled={!billItemsStore.isItemSelected} onClick={billItemsStore.deleteItem}>
                         Delete
                     </Button>

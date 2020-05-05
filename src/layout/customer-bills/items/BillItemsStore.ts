@@ -57,7 +57,20 @@ class BillItemsStore {
     };
 
     deleteItem = () => {
-        // todo
+        const restInit: RestInit = new RestInit();
+        restInit.url = '/deleteItem';
+        restInit.header = {
+            'Content-Type': 'application/json',
+        };
+        restInit.body = JSON.stringify({
+            id: this.selectedItem.ProductId, // todo -> see what to send here
+        });
+        restInit.method = 'POST';
+        RestService.fetch(restInit, this.handleDeleteResponse);
+    };
+
+    handleDeleteResponse = (apiResponse: any) => {
+        this.init();
     };
 
     mapSelectedBillItem = () => {
