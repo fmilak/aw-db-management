@@ -11,8 +11,6 @@ class CustomerBillsFormStore {
 
     @observable customerId = '';
 
-    @observable currentBill: Bill = new Bill();
-
     @observable newBill: Bill = new Bill();
 
     @action

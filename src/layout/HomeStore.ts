@@ -45,11 +45,11 @@ class HomeStore {
     };
 
     addCustomer = (): void => {
-        this.history.push('/add');
+        this.history.push('/add', {selectedCustomer: new Customer()});
     };
 
     editCustomer = (): void => {
-        this.history.push('/edit');
+        this.history.push('/edit', {selectedCustomer: this.mapSelectedCustomer()});
     };
 
     deleteCustomer = (): void => {
@@ -74,6 +74,17 @@ class HomeStore {
 
     manageCustomerBills = (): void => {
         this.history.push(`/${this.selectedCustomer.Id}/bills`);
+    };
+
+    mapSelectedCustomer = () => {
+        return {
+            Id: this.selectedCustomer.Id,
+            Name: this.selectedCustomer.Name,
+            Surname: this.selectedCustomer.Surname,
+            Email: this.selectedCustomer.Email,
+            Telephone: this.selectedCustomer.Telephone,
+            CityId: this.selectedCustomer.CityId,
+        };
     };
 }
 

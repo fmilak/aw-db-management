@@ -32,7 +32,7 @@ const ItemForm = observer(({store}: {store: CustomerBillsFormStore}) => {
     return (
         <Form {...formItemLayout}>
             <Form.Item label="Bill Number">
-                <Input placeholder="Bill Number" defaultValue={store.currentBill.BillNumber} onChange={store.billNumberChange} />
+                <Input placeholder="Bill Number" onChange={store.billNumberChange} />
             </Form.Item>
 
             <Form.Item label="Date">
@@ -40,27 +40,15 @@ const ItemForm = observer(({store}: {store: CustomerBillsFormStore}) => {
             </Form.Item>
 
             <Form.Item label="Seller ID">
-                <Input
-                    placeholder="Seller ID"
-                    onChange={store.sellerIdChange}
-                    defaultValue={store.formType === 'edit' ? store.currentBill.SellerId : ''}
-                />
+                <Input placeholder="Seller ID" onChange={store.sellerIdChange} />
             </Form.Item>
 
             <Form.Item label="Credit Card ID">
-                <Input
-                    placeholder="Credit Card ID"
-                    onChange={store.creditCardIdChange}
-                    defaultValue={store.formType === 'edit' ? store.currentBill.CreditCardId : ''}
-                />
+                <Input placeholder="Credit Card ID" onChange={store.creditCardIdChange} />
             </Form.Item>
 
             <Form.Item label="Comment">
-                <Input
-                    placeholder="Comment"
-                    onChange={store.commentChange}
-                    defaultValue={store.formType === 'edit' ? store.currentBill.Comment : ''}
-                />
+                <Input placeholder="Comment" onChange={store.commentChange} />
             </Form.Item>
 
             <Form.Item label="Customer ID">
@@ -83,7 +71,6 @@ const ItemForm = observer(({store}: {store: CustomerBillsFormStore}) => {
 const CustomerBillsFormView: React.FC = observer(() => {
     const {customerBillsFormStore} = useContext(RootStoreContext);
     let {formType, customerId} = useParams();
-    let {state} = useLocation();
     customerBillsFormStore.formType = !formType ? '' : formType;
     customerBillsFormStore.history = useHistory();
 
