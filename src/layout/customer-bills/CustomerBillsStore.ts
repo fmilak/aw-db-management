@@ -52,6 +52,23 @@ class CustomerBillsStore {
         this.history.push(`/${this.selectedCustomerId}/bills/${this.selectedBill.Id}/items`, {bill: this.mapSelectedBill()});
     };
 
+    deleteBill = () => {
+        const restInit: RestInit = new RestInit();
+        restInit.url = '/deleteBill';
+        restInit.header = {
+            'Content-Type': 'application/json',
+        };
+        restInit.body = JSON.stringify({
+            id: this.selectedBill.Id,
+        });
+        restInit.method = 'POST';
+        RestService.fetch(restInit, this.handleDeleteResponse);
+    };
+
+    handleDeleteResponse = (apiResponse: any) => {
+        this.init();
+    };
+
     mapSelectedBill = () => {
         return {
             Id: this.selectedBill.Id,

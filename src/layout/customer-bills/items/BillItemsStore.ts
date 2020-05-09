@@ -1,8 +1,8 @@
-import {action, observable, computed} from 'mobx';
-import BillItem from '../../../model/BilItem';
+import {action, computed, observable} from 'mobx';
 import RestInit from '../../../model/api/RestInit';
-import RestService from '../../../service/RestService';
+import BillItem from '../../../model/BilItem';
 import Bill from '../../../model/Bill';
+import RestService from '../../../service/RestService';
 
 class BillItemsStore {
     selectedCustomerId!: number;

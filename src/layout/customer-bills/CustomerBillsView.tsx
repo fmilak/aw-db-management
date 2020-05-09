@@ -21,8 +21,11 @@ const CustomerBillsView: React.FC = observer(() => {
             {loginStore.isAuthenticated && (
                 <div>
                     <Button onClick={customerBillsStore.addBill}>Add</Button>
-                    <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.editBill}>
+                    {/* <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.editBill}>
                         Edit
+                    </Button> */}
+                    <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.deleteBill}>
+                        Delete
                     </Button>
                     <Button disabled={!customerBillsStore.isBillSelected} onClick={customerBillsStore.manageItems}>
                         Manage Items

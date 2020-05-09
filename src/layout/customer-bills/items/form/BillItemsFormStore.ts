@@ -1,9 +1,7 @@
-import {observable, action} from 'mobx';
+import {action, observable} from 'mobx';
 import RestInit from '../../../../model/api/RestInit';
-import {Base64} from 'js-base64';
-import RestService from '../../../../service/RestService';
 import BillItem from '../../../../model/BilItem';
-import Bill from '../../../../model/Bill';
+import RestService from '../../../../service/RestService';
 
 class BillItemsFormStore {
     formType = '';
@@ -56,6 +54,7 @@ class BillItemsFormStore {
 
     handleSaveResponse = (responseJson: any) => {
         console.log(responseJson);
+        this.history.goBack();
     };
 
     cancelForm = () => {
