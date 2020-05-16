@@ -19,7 +19,7 @@ class BillItemsStore {
 
     @computed
     get isItemSelected(): boolean {
-        return this.selectedItem.ProductId !== '';
+        return this.selectedItem.Id !== 0;
     }
 
     @action
@@ -63,7 +63,7 @@ class BillItemsStore {
             'Content-Type': 'application/json',
         };
         restInit.body = JSON.stringify({
-            id: this.selectedItem.ProductId, // todo -> see what to send here
+            id: this.selectedItem.Id,
         });
         restInit.method = 'POST';
         RestService.fetch(restInit, this.handleDeleteResponse);
@@ -75,6 +75,7 @@ class BillItemsStore {
 
     mapSelectedBillItem = () => {
         return {
+            Id: this.selectedItem.Id,
             BillId: this.selectedItem.BillId,
             ProductId: this.selectedItem.ProductId,
             Quantity: this.selectedItem.Quantity,

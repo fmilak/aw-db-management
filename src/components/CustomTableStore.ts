@@ -137,9 +137,12 @@ class CustomTableStore {
     filterBillItemsTable = (value: string): void => {
         this.data = this.originalData.filter((item: BillItem) => {
             if (
+                (!isNil(item.Id) && item.Id.toString().includes(value)) ||
                 (!isNil(item.BillId) && item.BillId.toString().includes(value)) ||
                 (!isNil(item.ProductId) && item.ProductId.toString().includes(value)) ||
-                (!isNil(item.Quantity) && item.Quantity.toString().includes(value))
+                (!isNil(item.Quantity) && item.Quantity.toString().includes(value)) ||
+                (!isNil(item.PricePerPiece) && item.PricePerPiece.toString().includes(value)) ||
+                (!isNil(item.TotalPrice) && item.TotalPrice.toString().includes(value))
             ) {
                 return item;
             }
@@ -228,8 +231,11 @@ class CustomTableStore {
     private sortBillItemsTable = (): void => {
         this.data = this.data.slice().sort((a: BillItem, b: BillItem): any => {
             if (
+                this.sort.field === BillItemsSortField.ID ||
                 this.sort.field === BillItemsSortField.BILL_ID ||
                 this.sort.field === BillItemsSortField.PRODUCT_ID ||
+                this.sort.field === BillItemsSortField.TOTAL_PRICE ||
+                this.sort.field === BillItemsSortField.PRICE_PER_PIECE ||
                 this.sort.field === BillItemsSortField.QUANTITY
             ) {
                 if (this.sort.isAsc) {

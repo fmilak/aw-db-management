@@ -124,9 +124,12 @@ const BillItemsList = observer(({store}) => {
                     key={item.ProductId}
                     onClick={() => store.rowClick(item)}
                     style={store.selected === item ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}}>
+                    <td>{item.Id}</td>
                     <td>{item.BillId}</td>
                     <td>{item.ProductId}</td>
                     <td>{item.Quantity}</td>
+                    <td>{item.PricePerPiece}</td>
+                    <td>{item.TotalPrice}</td>
                 </tr>
             );
     });

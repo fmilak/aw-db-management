@@ -18,7 +18,10 @@ export enum BillSortField {
 }
 
 export enum BillItemsSortField {
+    ID = 'Id',
     BILL_ID = 'BillId',
     PRODUCT_ID = 'ProductId',
     QUANTITY = 'Quantity',
+    PRICE_PER_PIECE = 'PricePerPiece',
+    TOTAL_PRICE = 'TotalPrice',
 }

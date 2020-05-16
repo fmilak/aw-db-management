@@ -16,6 +16,10 @@ class BillItemsFormStore {
 
     @observable quantity = '';
 
+    @observable pricePerPiece = '';
+
+    @observable totalPrice = '';
+
     @action
     productIdChange = (e: any): void => {
         this.productId = e.target.value;
