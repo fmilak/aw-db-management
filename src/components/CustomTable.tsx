@@ -22,7 +22,7 @@ const TablePaging = observer(({store}: {store: CustomTableStore}): any => {
         return (
             <Button
                 key={pageNumber}
-                style={store.selectedPage === pageNumber ? {backgroundColor: 'blue'} : {}}
+                style={store.selectedPage === pageNumber ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}}
                 onClick={() => store.changeTablePaging(pageNumber)}>
                 {pageNumber}
             </Button>
@@ -81,7 +81,7 @@ const CustomerList = observer(({store}) => {
                         className="row"
                         key={customer.Id}
                         onClick={() => store.rowClick(customer)}
-                        style={store.selected === customer ? {backgroundColor: 'blue'} : {}}>
+                        style={store.selected === customer ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}}>
                         <td>{customer.Id}</td>
                         <td>{customer.Name}</td>
                         <td>{customer.Surname}</td>
@@ -102,7 +102,7 @@ const BillList = observer(({store}) => {
                     className="row"
                     key={bill.Id}
                     onClick={() => store.rowClick(bill)}
-                    style={store.selected === bill ? {backgroundColor: 'blue'} : {}}>
+                    style={store.selected === bill ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}}>
                     <td>{bill.Id}</td>
                     <td>{bill.Date}</td>
                     <td>{bill.BillNumber}</td>
@@ -123,7 +123,7 @@ const BillItemsList = observer(({store}) => {
                     className="row"
                     key={item.ProductId}
                     onClick={() => store.rowClick(item)}
-                    style={store.selected === item ? {backgroundColor: 'blue'} : {}}>
+                    style={store.selected === item ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}}>
                     <td>{item.BillId}</td>
                     <td>{item.ProductId}</td>
                     <td>{item.Quantity}</td>
@@ -175,16 +175,18 @@ const CustomTable: React.FC<CustomTableProps> = observer(({data, onRowClick, typ
             <div>
                 <TablePaging store={store} />
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <TableHeader store={store} />
-                    </tr>
-                </thead>
-                <tbody>
-                    <TableType store={store} />
-                </tbody>
-            </table>
+            <div>
+                <table className="fixed_header">
+                    <thead>
+                        <tr>
+                            <TableHeader store={store} />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <TableType store={store} />
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 });
