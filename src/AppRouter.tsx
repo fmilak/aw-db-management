@@ -1,37 +1,38 @@
 import {Icon, Layout, Menu} from 'antd';
 import {createBrowserHistory} from 'history';
-import React, {useContext} from 'react';
+import React from 'react';
 import {Route, Router, Switch} from 'react-router-dom';
-import {RootStoreContext} from './App';
+import CustomerBillsView from './layout/customer-bills/CustomerBillsView';
+import CustomerBillsFormView from './layout/customer-bills/form/CustomerBillsFormView';
+import BillItemsView from './layout/customer-bills/items/BillItemsView';
+import CustomerFormView from './layout/customer/CustomerFormView';
 import HomeView from './layout/HomeView';
-import ProfileView from './layout/profile/ProfileView';
 import LoginView from './login/LoginView';
+import BillItemsFormView from './layout/customer-bills/items/form/BillItemsFormView';
 
 const {Header, Content} = Layout;
 
 const customHistory = createBrowserHistory();
 
 const AppRouter = () => {
-    const {loginStore} = useContext(RootStoreContext);
-
     return (
         <Router history={customHistory}>
             <div>
-                <Layout className="layout" style={{position: 'fixed', zIndex: 1, width: '100%'}}>
+                <Layout className="layout" style={{position: 'fixed', zIndex: 1, width: '100%', height: '100%'}}>
                     <Header>
                         <div className="logo" />
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{lineHeight: '64px'}}>
+                        <Menu
+                            theme="dark"
+                            mode="horizontal"
+                            defaultSelectedKeys={[customHistory.location.key ? customHistory.location.key : '1']}
+                            style={{lineHeight: '64px'}}>
                             <Menu.Item key="1" onClick={() => customHistory.push('/')}>
                                 <Icon type="home" />
                                 Home
                             </Menu.Item>
-                            <Menu.Item key="2" onClick={() => customHistory.push('/login')}>
-                                <Icon type="home" />
-                                Login
-                            </Menu.Item>
-                            <Menu.Item key="3" onClick={() => customHistory.push(`/${loginStore.username}`)}>
+                            <Menu.Item key="2" onClick={() => customHistory.push(`/login`)}>
                                 <Icon type="user" />
-                                Profile
+                                Login
                             </Menu.Item>
                         </Menu>
                     </Header>
@@ -39,9 +40,23 @@ const AppRouter = () => {
                         <div style={{background: '#fff', padding: 24, minHeight: 280}}>
                             <Switch>
                                 <Route path="/login">
-                                    <LoginView /> {/*todo -> make login popup?*/}
+                                    <LoginView />
                                 </Route>
-                                <Route path="/:profileName" children={<ProfileView />} />
+                                <Route path="/:customerId/bills/:billId/items/:formType">
+                                    <BillItemsFormView />
+                                </Route>
+                                <Route path="/:customerId/bills/:billId/items">
+                                    <BillItemsView />
+                                </Route>
+                                <Route path="/:customerId/bills/:formType">
+                                    <CustomerBillsFormView />
+                                </Route>
+                                <Route path="/:customerId/bills">
+                                    <CustomerBillsView />
+                                </Route>
+                                <Route path="/:formType">
+                                    <CustomerFormView />
+                                </Route>
                                 <Route path="/">
                                     <HomeView />
                                 </Route>

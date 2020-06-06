@@ -1,11 +1,17 @@
-import {action, observable} from "mobx";
-import {stringify} from 'querystring';
+import {isNil} from 'lodash';
+import {action, observable} from 'mobx';
+import RestInit from '../model/api/RestInit';
+import User from '../model/User';
+import RestService from '../service/RestService';
 
 class LoginStore {
-
     @observable username = '';
 
     @observable password = '';
+
+    @observable isAuthenticated = false;
+
+    @observable user = new User();
 
     @action
     onUsernameChange = (e: any): void => {
@@ -17,35 +23,33 @@ class LoginStore {
         this.password = e.target.value;
     };
 
+    @action
     tryLogin = (): void => {
-        console.log('Login tried');
-        console.log(this.username);
-        console.log(this.password);
-
-        const url = 'http://localhost:8080/oauth/token';
-        const header = {
-            'Authorization': 'Basic dGhlLXJpbmc6cGFzc3dvcmQ=',
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        const restInit: RestInit = new RestInit();
+        restInit.url = '/login';
+        restInit.header = {
+            'Content-Type': 'application/json',
         };
-        const body = {
+        restInit.body = JSON.stringify({
             username: this.username,
-            grant_type: 'password',
             password: this.password,
-        };
-        fetch(url, {
-            method: 'POST',
-            headers: header,
-            body: stringify(body)
-        }).then(response => {
-            console.log(response);
-            return response.json();
-        }).then(responseJson => {
-            console.log(responseJson);
-        }).catch(err => {
-            console.log(err);
-        })
+        });
+        restInit.method = 'POST';
+        RestService.fetch(restInit, this.handleLoginResponse);
     };
 
+    @action
+    handleLoginResponse = (responseJson: any): void => {
+        console.log(responseJson);
+        if (!isNil(responseJson.token)) {
+            this.isAuthenticated = true;
+            this.user.username = responseJson.username;
+            localStorage.setItem('token', responseJson.token);
+            alert('Login successful');
+        } else {
+            alert('Login error');
+        }
+    };
 }
 
 export default LoginStore;
